@@ -15,12 +15,18 @@
           crossorigin="anonymous" referrerpolicy="no-referrer">
     {# MON STYLESHEET #}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <title>{% block title %}{% endblock %}</title>
+    {# CSS ADITIONEL #}
+    {% block css %}{% endblock %}
+
+    {# TODO: le titre pour etre dynamisé #}
+    <title>{% block title %}{% endblock %} - Le Wake For Ever</title>
 </head>
+
 <body>
+
 <header>
     {# BOOTSRAP NAV #}
-        <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
@@ -48,14 +54,12 @@
 
 
 </header>
-<div class="container">
-
-    {% block body %}
-
-    {% endblock %}
 
 
-</div>
+    {% block body %}{% endblock %}
+
+
+
 {# BOOTSTRAP JS #}
 <script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}"></script>
 </body>
