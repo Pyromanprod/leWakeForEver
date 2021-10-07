@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {# BOOTSTRAP #}
     <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+
     {# FONT AWESOME #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
@@ -26,37 +27,48 @@
 
 <header>
     {# BOOTSRAP NAV #}
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container-fluid">
+            <a href="{{ path('home') }}" class="me-2"><img src="{{ asset('image/logo2.png') }}" alt=""></a>
+            <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
 
-                <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {# BOUTON #}
+                    <li class="nav-item">
+                        <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
+                           href="{{ path('home') }}"><i class="fas fa-home me-2"></i>Accueil</a>
+                    </li>
+                </ul>
+                {# A DROITE #}
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {# BOUTON #}
+                    {# TODO:changer les paths #}
+                    <li class="nav-item">
+                        <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
+                           href="{{ path('home') }}"><i class="fas fa-user-plus me-2"></i>Inscription</a>
+                    </li>
+                    {# BOUTON #}
+                    <li class="nav-item">
+                        <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
+                           href="{{ path('home') }}"><i class="fas fa-user me-2"></i>Connexion</a>
+                    </li>
+                </ul>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                        {# BOUTON #}
-                        <li class="nav-item">
-                            <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
-                               href="{{ path('home') }}">Accueil</a>
-                        </li>
-
-                    </ul>
-
-                </div>
             </div>
-        </nav>
-
+        </div>
+    </nav>
 
 
 </header>
 
 
-    {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
 
 
