@@ -27,7 +27,7 @@
 
 <header>
     {# BOOTSRAP NAV #}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a href="{{ path('home') }}" class="me-2"><img src="{{ asset('image/logo2.png') }}" alt=""></a>
             <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
@@ -46,18 +46,42 @@
                     </li>
                 </ul>
                 {# A DROITE #}
+
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    {# BOUTON #}
-                    {# TODO:changer les paths #}
-                    <li class="nav-item">
-                        <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
-                           href="{{ path('home') }}"><i class="fas fa-user-plus me-2"></i>Inscription</a>
-                    </li>
-                    {# BOUTON #}
-                    <li class="nav-item">
-                        <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
-                           href="{{ path('home') }}"><i class="fas fa-user me-2"></i>Connexion</a>
-                    </li>
+
+
+                    {% if app.user %}
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="profil-dropdown" role="button"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user mx-1"></i>{{ app.user.pseudo }}
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="profil-dropdown">
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('home') }}"><i
+                                            class="fas fa-sign-out-alt mr-1"></i>profil</a>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}"><i
+                                            class="fas fa-sign-out-alt mr-1"></i>Déconnexion</a>
+                            </div>
+                        </li>
+
+                    {% else %}
+
+                        {# BOUTON #}
+                        {# TODO:changer les paths #}
+                        <li class="nav-item">
+                            <a class="nav-link {{ route == 'app_register' ? 'active' }}" aria-current="page"
+                               href="{{ path('app_register') }}"><i class="fas fa-user-plus me-2"></i>Inscription</a>
+                        </li>
+                        {# BOUTON #}
+                        <li class="nav-item">
+                            <a class="nav-link {{ route == 'app_login' ? 'active' }}" aria-current="page"
+                               href="{{ path('app_login') }}"><i class="fas fa-user me-2"></i>Connexion</a>
+                        </li>
+
+                    {% endif %}
                 </ul>
 
             </div>
@@ -66,6 +90,25 @@
 
 
 </header>
+{% if app.session.flashBag.has('succes') or app.session.flashBag.has('fail') %}
+
+    <div class="container">
+        <div class="row">
+
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success text-center my-2 fw-bold">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+            {% for message in app.flashes('fail') %}
+                <div class="alert alert-danger text-center my-2 fw-bold">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}
 
 
 {% block body %}{% endblock %}
