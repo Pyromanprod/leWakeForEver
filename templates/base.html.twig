@@ -27,7 +27,7 @@
 
 <header>
     {# BOOTSRAP NAV #}
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container-fluid">
             <a href="{{ path('home') }}" class="me-2"><img src="{{ asset('image/logo2.png') }}" alt=""></a>
             <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
@@ -44,6 +44,23 @@
                         <a class="nav-link {{ route == 'home' ? 'active' }}" aria-current="page"
                            href="{{ path('home') }}"><i class="fas fa-home me-2"></i>Accueil</a>
                     </li>
+                    {# BOUTON #}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" id="profil-dropdown" role="button"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user mx-1"></i>Articles
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="profil-dropdown">
+                            <a class="dropdown-item {{ route == 'create_article' ? 'active' }}" aria-current="page"
+                               href="{{ path('create_article') }}"><i class="fas fa-pen-alt me-2"></i>Créer un article</a>
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item {{ route == 'view_articles' ? 'active' }}" aria-current="page"
+                               href="{{ path('view_articles') }}"><i class="fas fa-newspaper me-2"></i>Liste des articles</a>
+
+                        </div>
+
                 </ul>
                 {# A DROITE #}
 
@@ -51,7 +68,6 @@
 
 
                     {% if app.user %}
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-light" href="#" id="profil-dropdown" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,15 +75,16 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="profil-dropdown">
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('home') }}"><i
+                                <a class="dropdown-item" href="{{ path('profil') }}"><i
                                             class="fas fa-id-card mr-1"></i>Profil</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ path('app_logout') }}"><i
                                             class="fas fa-sign-out-alt mr-1"></i>Déconnexion</a>
                             </div>
                         </li>
 
                     {% else %}
+
 
                         {# BOUTON #}
                         {# TODO:changer les paths #}
@@ -82,6 +99,10 @@
                         </li>
 
                     {% endif %}
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit">Recherche</button>
+                    </form>
                 </ul>
 
             </div>
@@ -90,7 +111,7 @@
 
 
 </header>
-{% if app.session.flashBag.has('succes') or app.session.flashBag.has('fail') %}
+{% if app.session.flashBag.has('success') or app.session.flashBag.has('fail') %}
 
     <div class="container">
         <div class="row">

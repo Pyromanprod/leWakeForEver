@@ -4,7 +4,7 @@
 body{
     font-family: 'Roboto', sans-serif;
     background-image: url("../image/fond.jpg");
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;*/
     background-size: cover;
     color: #F5F7F9;
 }
