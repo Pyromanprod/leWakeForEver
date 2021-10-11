@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block mt-5">
+
+                <h1 class="text-center">{{ article.title }}</h1>
+                <p>{{ article.content|nl2br }}</p>
+                <p>Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
+                    le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 mt-1 d-inline-block">
+
+                <h2 class="fs-6">Commentaires...</h2>
+                {{ form(form) }}
+                {% for comment in article.comments %}
+                    <p class="bg-light text-dark">de {{ comment.user.pseudo }}
+                        le {{ comment.publicationDate|date('d/m/Y') }}</p>
+                    <p class="text-success">{{ comment.content }}</p>
+                {% else %}
+                    <p>Soyez le premier a réagir</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -17,7 +17,12 @@ class MainController extends AbstractController
      */
     public function home(): Response
     {
-        return $this->render('main/home.html.twig');
+        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
+        $listeArtcile = $articleRepo->findBy([],['id'=>'DESC'],5);
+
+        return $this->render('main/home.html.twig',[
+            'listeArticle'=>$listeArtcile,
+        ]);
     }
 
     /**

@@ -23,11 +23,11 @@
     <title>{% block title %}{% endblock %} - Le Wake For Ever</title>
 </head>
 
-<body>
+<body class="bg-light">
 
 <header>
     {# BOOTSRAP NAV #}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="{{ path('home') }}" class="me-2"><img src="{{ asset('image/logo2.png') }}" alt=""></a>
             <a class="navbar-brand" href="{{ path('home') }}">Wake</a>
@@ -46,18 +46,21 @@
                     </li>
                     {# BOUTON #}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-light" href="#" id="profil-dropdown" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="profil-dropdown" role="button"
                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user mx-1"></i>Articles
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="profil-dropdown">
-                            <a class="dropdown-item {{ route == 'create_article' ? 'active' }}" aria-current="page"
-                               href="{{ path('create_article') }}"><i class="fas fa-pen-alt me-2"></i>Créer un article</a>
-                            <div class="dropdown-divider"></div>
+                            {% if is_granted('ROLE_ADMIN') %}
 
-                            <a class="dropdown-item {{ route == 'view_articles' ? 'active' }}" aria-current="page"
-                               href="{{ path('view_articles') }}"><i class="fas fa-newspaper me-2"></i>Liste des articles</a>
+                            <a class="dropdown-item" aria-current="page"
+                               href="{{ path('blog_create_article') }}"><i class="fas fa-pen-alt me-2"></i>Créer un article</a>
+                            <div class="dropdown-divider"></div>
+                            {% endif %}
+
+                            <a class="dropdown-item" aria-current="page"
+                               href="{{ path('blog_view_articles') }}"><i class="fas fa-newspaper me-2"></i>Liste des articles</a>
 
                         </div>
 
@@ -69,7 +72,7 @@
 
                     {% if app.user %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" id="profil-dropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="profil-dropdown" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user mx-1"></i>{{ app.user.pseudo }}
                             </a>
@@ -87,7 +90,6 @@
 
 
                         {# BOUTON #}
-                        {# TODO:changer les paths #}
                         <li class="nav-item">
                             <a class="nav-link {{ route == 'app_register' ? 'active' }}" aria-current="page"
                                href="{{ path('app_register') }}"><i class="fas fa-user-plus me-2"></i>Inscription</a>

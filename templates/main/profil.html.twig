@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block mt-5">
+
+                <div class="card mx-auto col-12 col-md-10 col-lg-5 mt-5">
+                    <img src="{{ asset('image/defaut.jpg') }}" class="card-img-top" alt="...">
+                    <h5 class="card-title text-center mt-2">{{ app.user.pseudo }}</h5>
+                    <div class="card-body">
+                        <p class="card-text">Mail :
+                            <span class="text-info">{{ app.user.email }}</span>
+                        </p>
+                        <p class="card-text">Date d'inscription :
+                            <span class="text-info">
+                            {{ app.user.creationDate|date('d/m/Y à H\\hi') }}
+                            </span>
+                        </p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <p>Role : <span class="text-info">Administrateur</span></p>
+                        {% else %}
+                            <p>Role : <span class="text-info">Utilisateur</span></p>
+                        {% endif %}
+                        <a href="#" class="btn btn-outline-primary w-100">Modifier Avatar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

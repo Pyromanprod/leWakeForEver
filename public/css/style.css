@@ -3,18 +3,30 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-image: url("../image/fond.jpg");
-    /*background-repeat: no-repeat;*/
-    background-size: cover;
-    color: #F5F7F9;
+    /*background-color: rgba(0, 234, 255, 0.04);*/
+    color: #003138;
+}
+div.card>a>div.card-header{
+    color: #003138;;
 }
 
-.cover{
-    background-image: url("../image/cover.jpg");
-    height: 300px;
+.banner{
+    background-image: url("../image/banner.jpg");
+    height: 150px;
     background-attachment: fixed;
     background-size: cover;
 }
 i{
     margin-right: 10px;
+}
+.card img{
+    max-height: 200px;
+    object-fit: contain;
+}
+@media screen AND (min-width: 768px){
+    .banner{
+
+        height: 300px;
+
+    }
 }

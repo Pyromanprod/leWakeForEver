@@ -2,16 +2,59 @@
 
 {% block body %}
 
-    <div class="container-fluid">
-        <div class="row">
-            <h1 class="col-12 text-center mt-3 mb-0">Le wake for ever</h1>
-        </div>
+    <div class="container-fluid mt-5">
 
-        <div class="row">
-            <h2 class="text-center fs-6 mt-0 mb-3">Pour tous les passionnés de WakeBoard</h2>
-            <p class="col-12 col-md-8 mx-auto text-center">CablePark ou Bateau tant qu'on est tiré par un cable qu'on flotte sur l'eau et qu'on s'envoie l'air on dis oui !</p>
+        <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block">
+            <section class="row ">
+                {# #################################INTRODUCTION################# #}
+                <h1 class="col-12 text-center mt-3 mb-0 text-uppercase">Le wake for ever</h1>
+
+                <h2 class="text-center mt-0 mb-3">Pour tous les passionnés de WakeBoard</h2>
+                <h3 class="col-12 mx-auto fw-normal"><strong class="fw-normal">CablePark</strong>
+                    ou
+                    <strong class="fw-normal">Bateau</strong> tant qu'on est <strong class="fw-normal">tiré par un
+                        cable</strong>
+                    qu'on, flotte sur l'eau et qu'on s'envoie l'air on dis oui !</h3>
+            </section>
+            <section class="row">
+
+                <p class="col-12">Nouveau site/blog concacré au <strong
+                            class="fw-normal">wakeboard</strong> n'hésitez pas a vous inscrire pour partager avec nous
+                    <strong class="fw-normal">votre passion</strong>.</p>
+                <p class="col-12">Nous allons partager des vidéos, des photos, des tutos pour les
+                    tricks de base.
+                    <br>
+                    Et pourquoi pas s'organiser des rencontres entre park pour <strong>RIDER, RIGOLER</strong> ET
+                    SURTOUT
+                    <strong>BOIRE DES COUPS !!</strong></p>
+
+            </section>
         </div>
-        <div class="cover row my-3"></div>
+        <div class="banner row my-3"></div>
+
+        <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block">
+            {# #################################LISTE DES 5 DERNIERS ARTICLES################# #}
+            <section class="last-article">
+                <h2 class="m-3"><i class="fas fa-newspaper"></i>Les 5 derniers articles</h2>
+                {% for article in listeArticle %}
+                    <div class="card col-12 col-md-10 mx-auto mt-3">
+                        <a href="{{ path('blog_view_article',{'slug': article.slug}) }}" class="text-decoration-none">
+                            <div class="card-header">
+                                {{ article.title }}
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <p class="card-text">{{ article.content|excerpt(20) }} <br>
+                                <a href="{{ path('blog_view_article',{'slug': article.slug}) }}">
+                                    voir plus...</a></p>
+
+                            <p>Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
+                                le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
     </div>
 
 
