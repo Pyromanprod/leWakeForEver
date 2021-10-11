@@ -48,7 +48,10 @@
                                 <a href="{{ path('blog_view_article',{'slug': article.slug}) }}">
                                     voir plus...</a></p>
 
-                            <p>Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
+                        </div>
+                        <div class="card-footer">
+
+                            <p class="blockquote-footer mt-0">Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
                                 le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
                         </div>
                     </div>

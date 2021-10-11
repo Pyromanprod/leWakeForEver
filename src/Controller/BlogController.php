@@ -43,7 +43,7 @@ class BlogController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Arcticle ajouté avec succés');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('blog_view_article',['slug'=>$newArticle->getSlug()]);
         }
 
         return $this->render('blog/createArticle.html.twig', [

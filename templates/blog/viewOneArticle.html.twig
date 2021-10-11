@@ -6,11 +6,15 @@
     <div class="container mt-5">
         <div class="row">
             <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block mt-5">
+            <p class="col-12 text-center"><a href="{{ path('blog_view_articles') }}" class="text-decoration-none">Retour a la liste</a></p>
 
                 <h1 class="text-center">{{ article.title }}</h1>
                 <p>{{ article.content|nl2br }}</p>
-                <p>Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
+
+                <p class="blockquote-footer">Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
                     le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
+
+
             </div>
         </div>
         <div class="row">

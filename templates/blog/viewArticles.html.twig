@@ -16,13 +16,17 @@
                                 <a href="{{ path('blog_view_article',{'slug': article.slug}) }}">
                                     voir plus...</a></p>
 
-                            <p>Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
-                                le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
+
+                        </div>
+                        <div class="card-footer">
+                            <p class="blockquote-footer mt-1">Ecrit par : <span class="text-info">{{ article.user.pseudo }}</span>
+                                le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span>
+                            </p>
                         </div>
                     </div>
                 {% else %}
                     <div class="card col-12 col-md-10 mx-auto mt-3">
-                        <p>Aucun article les rédacteurs ce touche</p>
+                        <p>Aucun article les rédacteurs sont fénéant</p>
                     </div>
                 {% endfor %}
             </div>
