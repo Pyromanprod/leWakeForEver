@@ -7,11 +7,14 @@ use App\Entity\Comment;
 use App\Form\CreateArticleFormType;
 use App\Form\PostCommentFormType;
 use DateTime;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/blog", name="blog_")
  *
@@ -43,7 +46,7 @@ class BlogController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Arcticle ajouté avec succés');
-            return $this->redirectToRoute('blog_view_article',['slug'=>$newArticle->getSlug()]);
+            return $this->redirectToRoute('blog_view_article', ['slug' => $newArticle->getSlug()]);
         }
 
         return $this->render('blog/createArticle.html.twig', [
@@ -55,13 +58,27 @@ class BlogController extends AbstractController
     /**
      * @Route("/liste-des-articles/", name="view_articles")
      */
-    public function viewArticles(): Response
+    public function viewArticles(Request $request, PaginatorInterface $paginator): Response
     {
-        $articleRepo = $this->getDoctrine()->getRepository(Article::class);
-        $listeArtcile = $articleRepo->findBy([], ['id' => 'DESC']);
+
+        $requestedPage = $request->query->getInt('page', 1);
+
+        if ($requestedPage < 1) {
+            throw new NotFoundHttpException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery('SELECT a FROM App\Entity\Article a ORDER BY a.publicationDate DESC');
+        //récupération des Articles
+        $listArticle = $paginator->paginate(
+            $query,
+            $requestedPage,
+            10
+        );
 
         return $this->render('blog/viewArticles.html.twig', [
-            'listeArticle' => $listeArtcile,
+            'listeArticle' => $listArticle,
         ]);
     }
     ////////////////////////////////VOIR UN SEUL ARTICLES
@@ -105,6 +122,35 @@ class BlogController extends AbstractController
             'form' => $form->createView(),
         ]);
 
+
+    }
+
+    /**
+     * @Route("/search", name="search_article")
+     */
+    public function blog_search(Request $request, PaginatorInterface $paginator): Response
+    {
+
+        $requestedPage = $request->query->getInt('page', 1);
+
+        if ($requestedPage < 1) {
+            throw new NotFoundHttpException();
+        }
+        $requete = $request->query->get('search');
+        $em = $this->getDoctrine()->getManager();
+
+        $query = $em->createQuery("SELECT a FROM App\Entity\Article a WHERE a.title LIKE :search OR a.content LIKE :search ORDER BY a.publicationDate DESC")
+            ->setParameter('search', '%' . $requete . '%');
+        //récupération des Articles
+        $listArticle = $paginator->paginate(
+            $query,
+            $requestedPage,
+            10
+        );
+
+        return $this->render('blog/search_article.html.twig', [
+            'listeArticle' => $listArticle,
+        ]);
 
     }
 }

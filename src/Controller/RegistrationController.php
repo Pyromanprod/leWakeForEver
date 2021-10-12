@@ -40,7 +40,7 @@ class RegistrationController extends AbstractController
             $ip = $request->server->get('REMOTE_ADDR');
 
             //si quelque chose ne va pas on va la
-            if ($captchaResponse==null || !$recaptcha->verify($captchaResponse,)){
+            if ($captchaResponse==null || !$recaptcha->verify($captchaResponse, $ip)){
 
                 $form->addError(new FormError('Et le captcha'));
 
