@@ -7,14 +7,13 @@
         <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block">
             <section class="row ">
                 {# #################################INTRODUCTION################# #}
-                <h1 class="col-12 text-center mt-3 mb-0 text-uppercase">Le wake for ever</h1>
+                <h1 class="col-12 text-center mt-3 mb-0 text-uppercase">{{ site_name }}</h1>
 
                 <h2 class="text-center mt-0 mb-3">Pour tous les passionnés de WakeBoard</h2>
                 <h3 class="col-12 mx-auto fw-normal"><strong class="fw-normal">CablePark</strong>
                     ou
                     <strong class="fw-normal">Bateau</strong> tant qu'on est <strong class="fw-normal">tiré par un
-                        cable</strong>
-                    qu'on, flotte sur l'eau et qu'on s'envoie l'air on dis oui !</h3>
+                        cable</strong>, qu'on flotte sur l'eau et qu'on s'envoie l'air on dis oui !</h3>
             </section>
             <section class="row">
 
@@ -44,7 +43,7 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <p class="card-text">{{ article.content|excerpt(20) }} <br>
+                            <p class="card-text">{{ article.content|striptags|excerpt(20) }} <br>
                                 <a href="{{ path('blog_view_article',{'slug': article.slug}) }}">
                                     voir plus...</a></p>
 

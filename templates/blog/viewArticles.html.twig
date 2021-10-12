@@ -12,7 +12,7 @@
                             </div>
                         </a>
                         <div class="card-body">
-                            <p class="card-text">{{ article.content|excerpt(15) }} <br>
+                            <p class="card-text">{{ article.content|striptags|excerpt(15) }} <br>
                                 <a href="{{ path('blog_view_article',{'slug': article.slug}) }}">
                                     voir plus...</a></p>
 
