@@ -13,7 +13,7 @@
                     <img src="{{ asset('image/defaut.jpg') }}" class="card-img-top" alt="...">
 
                     {% else %}
-                    <img src="{{ asset('image/profils/'~ app.user.photo) }}" class="card-img-top img-fluid img-thumbnail" alt="...">
+                    <img src="{{ asset('image/profils/'~ app.user.photo)|imagine_filter('page_profil') }}" class="card-img-top img-fluid img-thumbnail" alt="...">
 
                     {% endif %}
                     <h5 class="card-title text-center mt-2">{{ app.user.pseudo }}</h5>
