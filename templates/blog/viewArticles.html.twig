@@ -33,6 +33,14 @@
                             <p class="blockquote-footer mt-1">Ecrit par : <span
                                         class="text-info">{{ article.user.pseudo }}</span>
                                 le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span>
+
+                                {% if is_granted('ROLE_ADMIN') %}
+
+                                    <a onclick="return confirm('Etes vous sur de supprimer ?')" href="{{ path('blog_delete_article', {'id': article.id, 'csrf_token': csrf_token('blog_delete_article_'~article.id)}) }}"
+                                       class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="{{ path('blog_article_edit', {'id': article.id}) }}" class="text-warning"> <i class="fas fa-edit"></i> </a>
+                                {% endif %}
+
                             </p>
                         </div>
                     </div>

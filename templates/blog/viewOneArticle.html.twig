@@ -6,7 +6,21 @@
     <div class="container mt-5">
         <div class="row">
             <div class="shadow col-lg-8 offset-lg-2 bg-light p-3 d-inline-block mt-5">
-            <p class="col-12 text-center"><a href="{{ path('blog_view_articles') }}" class="text-decoration-none">Retour a la liste</a></p>
+                <p class="col-12 text-center"><a href="{{ path('blog_view_articles') }}" class="text-decoration-none">Retour
+                        a la liste</a></p>
+                {% if is_granted('ROLE_ADMIN') %}
+                <div class="row">
+                    <div class="col-6">
+
+                        <a onclick="return confirm('Etes vous sur de supprimer ?')"
+                           href="{{ path('blog_delete_article', {'id': article.id, 'csrf_token': csrf_token('blog_delete_article_'~article.id)}) }}"
+                           class="text-danger"><i class="fas fa-trash-alt"></i>Supprimer</a>
+                    </div>
+                    <div class="col-6">
+                        <a href="{{ path('blog_article_edit', {'id': article.id}) }}" class="text-warning"> <i
+                                    class="fas fa-edit"></i> Modifier </a>
+                    </div>
+                    {% endif %}
 
                 <h1 class="text-center">{{ article.title }}</h1>
                 <p>{{ article.content|raw|purify }}</p>
@@ -15,6 +29,8 @@
                     le <span class="text-info">{{ article.publicationDate|date('d/m/Y') }}</span></p>
 
 
+
+                </div>
             </div>
         </div>
         <div class="row">
@@ -23,8 +39,8 @@
                 <h2 class="fs-6">Commentaires...</h2>
                 {{ form(form) }}
                 {% for comment in article.comments %}
-                    <p class="bg-light text-dark">de {{ comment.user.pseudo }}
-                        le {{ comment.publicationDate|date('d/m/Y') }}</p>
+                    <div class="bg-light text-dark">de {{ comment.user.pseudo }}
+                        le {{ comment.publicationDate|date('d/m/Y') }}</div>
                     <p class="text-success">{{ comment.content }}</p>
                 {% else %}
                     <p>Soyez le premier a réagir</p>

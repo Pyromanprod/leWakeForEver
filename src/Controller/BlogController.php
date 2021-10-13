@@ -8,6 +8,8 @@ use App\Form\CreateArticleFormType;
 use App\Form\PostCommentFormType;
 use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
+use phpDocumentor\Reflection\Types\This;
+use Psr\Container\ContainerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +37,7 @@ class BlogController extends AbstractController
         $newArticle = new Article();
         $form = $this->createForm(CreateArticleFormType::class, $newArticle);
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             //la fonction marche mais phpstorm est débile
             $newArticle->setUser($this->getUser());
@@ -152,5 +154,51 @@ class BlogController extends AbstractController
             'listeArticle' => $listArticle,
         ]);
 
+    }
+
+    /**
+     * @Route("/publication/suppression/{id}", name="delete_article")
+     */
+    public function delete(Article $article, Request $request): Response
+    {
+
+        if (!$this->isCsrfTokenValid('blog_delete_article_'.$article->getId(),$request->query->get('csrf_token'))){
+            $this->addFlash('fail', 'Error de suppression on ce la refait ?');
+        }else{
+
+        $em = $this->getDoctrine()->getManager();
+
+        $em->remove($article);
+        $em->flush();
+
+        $this->addFlash('success', 'Article supprimer sans problème');
+        }
+
+        return $this->redirectToRoute('blog_view_articles');
+    }
+
+    /**
+     * @Route("/modification/{id}", name="article_edit")
+     * @Security("is_granted('ROLE_ADMIN')")
+     */
+    public function articleEdit(Article $article, Request $request): Response
+    {
+
+        $form = $this->createForm(CreateArticleFormType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $this->addFlash('success', 'Article modifié');
+            return $this->redirectToRoute('blog_view_article',[
+                'slug'=>$article->getSlug()
+            ]);
+        }
+
+        return $this->render('blog/update_article.html.twig', [
+            'form'=>$form->createView()
+        ]);
     }
 }

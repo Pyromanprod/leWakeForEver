@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
             //si quelque chose ne va pas on va la
             if ($captchaResponse==null || !$recaptcha->verify($captchaResponse, $ip)){
 
-                $form->addError(new FormError('Et le captcha'));
+                $form->addError(new FormError('Et le captcha !!'));
 
             }
 
