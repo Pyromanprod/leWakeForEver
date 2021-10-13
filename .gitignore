@@ -22,4 +22,6 @@
 ### C'est mon qui gère
 .idea/
 /migrations/*.php
+/public/image/profils/*
+!/public/image/profils/.gitignore
 ###
