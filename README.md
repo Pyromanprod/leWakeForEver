@@ -1,4 +1,6 @@
 # Projet Le Blog de Batman
+## premier projet symfony guidé pour ma formation developpeur web et web mobile
+
 
 ## Installation
 
@@ -12,7 +14,7 @@ git clone https://github.com/RenaudKieffer/leWakeForEver.git
 
 ### Déplacer le terminal dans le dossier cloné
 ```
-cd leblogdebatman
+cd leWakeForEver
 ```
 
 ### Taper les commandes suivantes :
@@ -25,9 +27,3 @@ symfony console doctrine:migrations:migrate
 symfony console doctrine:fixtures:load
 symfony console assets:install public
 ```
-
-Les fixtures créeront :
-* Un compte admin (email: admin@a.a , password : aaaaaaaaA7/ )
-* 50 comptes utilisateurs (email aléatoire, password : aaaaaaaaA7/ )
-* 200 articles
-* entre 0 et 10 commentaires par article
